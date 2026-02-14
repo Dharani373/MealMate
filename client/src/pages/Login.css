@@ -1,0 +1,110 @@
+/* Login.css */
+
+/* Full page centering */
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f4f4; /* Light grey background */
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+.login-container {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 380px; /* Slightly narrower than signup for a tighter look */
+  border-top: 5px solid #ff8c00; /* Matching orange accent */
+}
+
+.login-container h2 {
+  color: #333;
+  margin-bottom: 25px;
+  font-size: 26px;
+  text-align: center;
+  font-weight: 700;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Input Styling */
+input {
+  margin-bottom: 18px;
+  padding: 14px 15px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  border-color: #ff8c00;
+  box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
+}
+
+/* Button Styling */
+button {
+  background-color: #ff8c00;
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+  margin-top: 5px;
+}
+
+button:hover {
+  background-color: #e67e22;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Link and Text styling */
+.signup-text {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+}
+
+.signup-text a {
+  color: #ff8c00;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.signup-text a:hover {
+  color: #e67e22;
+  text-decoration: underline;
+}
+
+/* Responsive adjustment */
+@media (max-width: 400px) {
+  .login-container {
+    width: 85%;
+    padding: 30px 20px;
+  }
+}
