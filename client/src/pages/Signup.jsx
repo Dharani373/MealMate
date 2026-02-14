@@ -1,14 +1,19 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { registerUser } from "../services/authService";
 import "./Signup.css";
 
 function Signup() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     rollNo: "",
     name: "",
     email: "",
     password: "",
   });
+
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -17,15 +22,34 @@ function Signup() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Signup Data:", formData);
-    // Later we will connect this to backend
+
+    setLoading(true);
+
+    try {
+      const response = await registerUser(formData);
+
+      alert(response.data.message);
+
+      setFormData({
+        rollNo: "",
+        name: "",
+        email: "",
+        password: "",
+      });
+
+      navigate("/"); // redirect to login
+    } catch (error) {
+      alert(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="signup-container">
-      <h2> SignUp</h2>
+      <h2>Student Signup</h2>
 
       <form onSubmit={handleSubmit}>
         <input
@@ -49,7 +73,7 @@ function Signup() {
         <input
           type="email"
           name="email"
-          placeholder="College Email"
+          placeholder="College Email (@cvr.ac.in)"
           value={formData.email}
           onChange={handleChange}
           required
@@ -64,7 +88,9 @@ function Signup() {
           required
         />
 
-        <button type="submit">Signup</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Registering..." : "Signup"}
+        </button>
 
         <p className="login-text">
           Already have an account? <Link to="/">Login</Link>

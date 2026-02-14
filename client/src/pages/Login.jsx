@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../services/authService";
 import "./Login.css";
 
 function Login() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    identifier: "", // roll no or email
+    identifier: "", // Roll No or Admin Email
     password: "",
   });
+
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -17,12 +20,33 @@ function Login() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Login Data:", formData);
+    setLoading(true);
 
-    // Later we send identifier + password to backend
+    try {
+      const response = await loginUser(formData);
+
+      const { token, role } = response.data;
+
+      // Store token & role
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", role);
+
+      alert("Login successful");
+
+      // Redirect based on role
+      if (role === "admin") {
+        navigate("/admin-dashboard");
+      } else {
+        navigate("/home");
+      }
+    } catch (error) {
+      alert(error.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -33,7 +57,7 @@ function Login() {
         <input
           type="text"
           name="identifier"
-          placeholder="Enter Roll Number or Admin Email"
+          placeholder="Enter Roll No or Admin Email"
           value={formData.identifier}
           onChange={handleChange}
           required
@@ -48,7 +72,9 @@ function Login() {
           required
         />
 
-        <button type="submit">Login</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
+        </button>
 
         <p className="signup-text">
           Don't have an account? <Link to="/signup">Signup</Link>
