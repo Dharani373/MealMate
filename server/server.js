@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
+const menuRoutes = require("./routes/menuRoutes");
 
 dotenv.config();
 connectDB();
@@ -10,6 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use("/api/menu", menuRoutes);
 
 app.get("/", (req, res) => {
   res.send("Meal Mate API Running");
