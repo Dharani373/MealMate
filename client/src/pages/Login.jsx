@@ -20,16 +20,19 @@ function Login() {
   };
 
   const handleSubmit = async (e) => {
+    const response = await loginUser(formData);
+    console.log(response.data);
     e.preventDefault();
     setLoading(true);
 
     try {
       const response = await loginUser(formData);
 
-      const { token, role } = response.data;
+      const { token, role, userId } = response.data;
 
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
+      localStorage.setItem("userId", userId);
 
       alert("Login successful");
 

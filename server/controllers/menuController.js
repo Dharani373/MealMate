@@ -1,7 +1,7 @@
-const Menu = require("../models/Menu");
+import Menu from "../models/Menu.js";
 
 // Add Menu Item
-exports.addMenuItem = async (req, res) => {
+export const addMenuItem = async (req, res) => {
   try {
     const { name, price, image, category, type } = req.body;
 
@@ -21,7 +21,7 @@ exports.addMenuItem = async (req, res) => {
 };
 
 // Get All Menu Items
-exports.getMenuItems = async (req, res) => {
+export const getMenuItems = async (req, res) => {
   try {
     const items = await Menu.find();
     res.json(items);
