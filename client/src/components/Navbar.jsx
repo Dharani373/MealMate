@@ -27,7 +27,7 @@ function Navbar() {
           <a href="#todays-menu">Today's Menu</a>
         </li>
         <li>
-          <Link to="/">Explore</Link>
+          <Link to="/orders">Orders</Link>
         </li>
         <li>
           <Link to="/">About</Link>

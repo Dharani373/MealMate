@@ -1,9 +1,9 @@
-const User = require("../models/User");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import User from "../models/User.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 // REGISTER STUDENT
-exports.register = async (req, res) => {
+export const register = async (req, res) => {
   try {
     const { rollNo, name, email, password } = req.body;
 
@@ -41,7 +41,7 @@ exports.register = async (req, res) => {
 };
 
 // LOGIN (Student or Admin)
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
   try {
     const { identifier, password } = req.body;
 
@@ -58,14 +58,12 @@ exports.login = async (req, res) => {
       return res.status(400).json({ message: "User not found" });
     }
 
-    // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    // Generate JWT token
     const token = jwt.sign(
       {
         id: user._id,
@@ -79,6 +77,7 @@ exports.login = async (req, res) => {
       message: "Login successful",
       token,
       role: user.role,
+      userId: user._id,
     });
   } catch (error) {
     console.error(error);
