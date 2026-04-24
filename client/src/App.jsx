@@ -5,6 +5,7 @@ import Signup from "./pages/signup";
 import Menu from "./pages/Menu";
 import AdminAddMenu from "./pages/AdminAddMenu";
 import Orders from "./pages/Orders";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/menu" element={<Menu />} />
       <Route path="/admin/add-menu" element={<AdminAddMenu />} />
       <Route path="/orders" element={<Orders />} />
+      <Route path="/about" element={<About />} />
     </Routes>
   );
 }

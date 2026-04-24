@@ -12,6 +12,7 @@ function Login() {
 
   const [loading, setLoading] = useState(false);
 
+  // Handle input change
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -19,14 +20,18 @@ function Login() {
     });
   };
 
+  // Handle login submit
   const handleSubmit = async (e) => {
-    const response = await loginUser(formData);
-    console.log(response.data);
     e.preventDefault();
+
+    console.log("handleSubmit running");
+
     setLoading(true);
 
     try {
       const response = await loginUser(formData);
+
+      console.log("Login Response:", response.data);
 
       const { token, role, userId } = response.data;
 
@@ -36,12 +41,15 @@ function Login() {
 
       alert("Login successful");
 
+      // Redirect user
       if (role === "admin") {
-        navigate("/admin-dashboard");
+        navigate("/admin/add-menu");
       } else {
         navigate("/");
       }
     } catch (error) {
+      console.log("Login Error:", error);
+
       alert(error.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
@@ -53,6 +61,7 @@ function Login() {
       <div className="auth-card">
         <h2>Login</h2>
 
+        {/* IMPORTANT: form must use onSubmit */}
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -72,6 +81,7 @@ function Login() {
             required
           />
 
+          {/* IMPORTANT: button must be type submit */}
           <button type="submit" disabled={loading}>
             {loading ? "Logging in..." : "Login"}
           </button>

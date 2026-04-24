@@ -23,14 +23,17 @@ function Navbar() {
         <li>
           <Link to="/">Home</Link>
         </li>
+
         <li>
           <a href="#todays-menu">Today's Menu</a>
         </li>
+
         <li>
           <Link to="/orders">Orders</Link>
         </li>
+
         <li>
-          <Link to="/">About</Link>
+          <Link to="/about">About</Link>
         </li>
       </ul>
 
@@ -46,8 +49,12 @@ function Navbar() {
             className="profile-circle"
             onClick={() => {
               const role = localStorage.getItem("role");
-              if (role === "admin") navigate("/admin-dashboard");
-              else navigate("/");
+
+              if (role === "admin") {
+                navigate("/admin/add-menu");
+              } else {
+                navigate("/");
+              }
             }}
           >
             <img src={studentIcon} alt="profile" className="profile-img" />
