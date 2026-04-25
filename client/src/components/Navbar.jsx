@@ -45,18 +45,7 @@ function Navbar() {
         )}
 
         {isLoggedIn && (
-          <div
-            className="profile-circle"
-            onClick={() => {
-              const role = localStorage.getItem("role");
-
-              if (role === "admin") {
-                navigate("/admin/add-menu");
-              } else {
-                navigate("/");
-              }
-            }}
-          >
+          <div className="profile-circle">
             <img src={studentIcon} alt="profile" className="profile-img" />
           </div>
         )}
